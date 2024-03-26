@@ -38,10 +38,10 @@ data/images/*
 results*.csv
 
 # Datasets -------------------------------------------------------------------------------------------------------------
-dataset/
-preprocess/processed_labels
-preprocess/raw_lables
-preprocess/raw_images
+dataset/grain_data/**
+dataset/processed_labels/*
+preprocess/raw_lables/*
+preprocess/raw_images/*
 coco/
 coco128/
 VOC/
