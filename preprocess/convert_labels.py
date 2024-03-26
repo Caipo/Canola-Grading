@@ -6,7 +6,7 @@ from glob import glob
 
 current = Path.cwd()
 xml_dir = current / 'raw_labels'
-output_dir = current / 'processed_labels'
+output_dir = Path.cwd().parent / 'dataset' / 'processed_labels'
 
 def make_lables(file):
     file = Path(file)
@@ -43,10 +43,7 @@ def make_lables(file):
     with open(output_dir / (file.stem + '.txt'), 'w') as write_file:
         write_file.write('\n'.join(data))
 
-
-def convert_labels():
+if __name__ == '__main__':
     files = [x for x in glob(str(xml_dir) + '/*')]
     for file in files:
-        print(file)
         make_lables(file)
-
