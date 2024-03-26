@@ -6,7 +6,7 @@ from glob import glob
 
 current = Path.cwd()
 xml_dir = current / 'raw_labels'
-output_dir = current.parent / 'dataset' / 'images'
+output_dir = current / 'processed_labels'
 
 def make_lables(file):
     file = Path(file)

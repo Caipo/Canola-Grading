@@ -1,7 +1,8 @@
 
 path: dataset/grain_data
-train: images
-val: images
+train: train 
+test: test
+val: val 
 
 
 
