@@ -1,0 +1,13 @@
+
+path: dataset/grain_data
+train: images
+val: images
+
+
+
+# Classes
+names:
+  0: pass 
+  1: green
+  2: heated
+  3: unknown
