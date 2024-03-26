@@ -2,7 +2,7 @@ from pathlib import Path
 from glob import glob
 from sklearn.model_selection import train_test_split
 import shutil
-
+import os
 
 
 current_dir = Path(__file__).parent
@@ -12,6 +12,12 @@ label_path = dataset_path / 'labels'
 train_path = dataset_path / 'train'
 test_path = dataset_path / 'test'
 val_path = dataset_path / 'val'
+
+
+os.makedirs(label_path, exist_ok = True)
+os.makedirs(train_path, exist_ok = True)
+os.makedirs(test_path, exist_ok = True)
+os.makedirs(val_path, exist_ok = True)
 
 def split(images, test_size = 0.1):
     train, test = train_test_split( images, 

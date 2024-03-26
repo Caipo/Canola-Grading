@@ -5,8 +5,8 @@ stages:
     deps:
     - path: preprocess/convert_labels.py
       hash: md5
-      md5: 267e51acad6c4dcb94355e632397315a
-      size: 1533
+      md5: 72742452cc1eb7e35e55eb14475f5d19
+      size: 1585
     - path: preprocess/raw_labels
       hash: md5
       md5: 0b37f272b850c5028a20c8660d6cfb0b.dir
@@ -18,3 +18,31 @@ stages:
       md5: 27600b1ddc60c8e9748d0a3829136130.dir
       size: 24263
       nfiles: 3
+  split:
+    cmd: python3 preprocess/train_test_split.py
+    deps:
+    - path: dataset/grain_data/labels
+      hash: md5
+      md5: 27600b1ddc60c8e9748d0a3829136130.dir
+      size: 24263
+      nfiles: 3
+    - path: preprocess/raw_images
+      hash: md5
+      md5: ef421943e99584049add501e4309e5eb.dir
+      size: 3548863
+      nfiles: 3
+    - path: preprocess/train_test_split.py
+      hash: md5
+      md5: b1614556fdc039d2b77b65736dfc9a8b
+      size: 1361
+    outs:
+    - path: dataset/grain_data/test
+      hash: md5
+      md5: afe7ed413d4999a1fc056a3b73b49291.dir
+      size: 1113839
+      nfiles: 2
+    - path: dataset/grain_data/train
+      hash: md5
+      md5: 6c629acbb98d3a174069be9fc60770c3.dir
+      size: 2459287
+      nfiles: 4

@@ -3,10 +3,13 @@ import xml.etree.ElementTree as ET
 import cv2
 from pathlib import Path
 from glob import glob
+import os
 
 current = Path(__file__).parent
 xml_dir = current / 'raw_labels'
 output_dir = current.parent / 'dataset' / 'grain_data' / 'labels'
+
+os.makedirs(output_dir, exist_ok = True)
 
 def make_lables(file):
     file = Path(file)
