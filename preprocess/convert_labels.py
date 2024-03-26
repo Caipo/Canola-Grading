@@ -4,9 +4,9 @@ import cv2
 from pathlib import Path
 from glob import glob
 
-current = Path.cwd()
+current = Path(__file__).parent
 xml_dir = current / 'raw_labels'
-output_dir = Path.cwd().parent / 'dataset' / 'processed_labels'
+output_dir = current.parent / 'dataset' / 'grain_data' / 'labels'
 
 def make_lables(file):
     file = Path(file)

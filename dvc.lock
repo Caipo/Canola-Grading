@@ -1,0 +1,20 @@
+schema: '2.0'
+stages:
+  convert:
+    cmd: python3 preprocess/convert_labels.py
+    deps:
+    - path: preprocess/convert_labels.py
+      hash: md5
+      md5: 267e51acad6c4dcb94355e632397315a
+      size: 1533
+    - path: preprocess/raw_labels
+      hash: md5
+      md5: 0b37f272b850c5028a20c8660d6cfb0b.dir
+      size: 109165
+      nfiles: 3
+    outs:
+    - path: dataset/grain_data/labels
+      hash: md5
+      md5: 27600b1ddc60c8e9748d0a3829136130.dir
+      size: 24263
+      nfiles: 3
