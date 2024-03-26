@@ -43,7 +43,8 @@ def make_lables(file):
     with open(output_dir / (file.stem + '.txt'), 'w') as write_file:
         write_file.write('\n'.join(data))
 
-if __name__ == '__main__':
+
+def convert_labels():
     files = [x for x in glob(str(xml_dir) + '/*')]
     for file in files:
         print(file)

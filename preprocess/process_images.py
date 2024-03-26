@@ -21,12 +21,10 @@ def split(images, test_size):
     [shutil.copy(str(label_path / Path(x).stem) + '.txt', test_path) for x in test] 
     
     
-    
-
-
-if __name__ == '__main__':
+def split_data_set()    
     images = [x for x in glob(str(raw_path) + '/*')]
     split(images)
+
 
 
 
