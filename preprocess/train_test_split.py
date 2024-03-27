@@ -13,12 +13,19 @@ label_path = dataset_path / 'labels'
 train_path = dataset_path / 'train'
 test_path = dataset_path / 'test'
 val_path = dataset_path / 'val'
-
+manual_path = current_dir / 'manual_sets'
 
 os.makedirs(label_path, exist_ok = True)
 os.makedirs(train_path, exist_ok = True)
 os.makedirs(test_path, exist_ok = True)
 os.makedirs(val_path, exist_ok = True)
+
+with open( manual_path / 'remove.txt') as file:
+    to_remove = [ x.replace('\n' ,'') for x in file]
+
+with open( manual_path / 'test.txt') as file:
+    test_set = [ str(raw_path /  x.replace('\n', '')) for x in file]
+
 
 
 def get_args():
@@ -32,32 +39,39 @@ def get_args():
     args = parser.parse_args()
     return vars(args)
 
-
-def split(images, test_size = None, val_size = None):
-    train, test = train_test_split( images, 
-                                    test_size = test_size, 
-                                    random_state = 42
-                                    )
-    
-    train, val = train_test_split( train, 
-                                    test_size = val_size, 
-                                    random_state = 42
-                                    )
+def split(images, val_size = 0):
+    val = list()
+    if val_size != 0:
+        train, val = train_test_split( images, 
+                                        test_size = val_size, 
+                                        random_state = 42
+                                        )
+    else:
+        train = images
 
     get_label_path = lambda x : str(label_path / Path(x).stem) + '.txt'
 
     [shutil.copy(x, train_path) for x in train] 
     [shutil.copy(get_label_path(x), train_path) for x in train] 
 
-    [shutil.copy(x, test_path) for x in test] 
-    [shutil.copy(get_label_path(x), test_path) for x in test] 
+    [shutil.copy(x, test_path) for x in test_set] 
+    [shutil.copy(get_label_path(x), test_path) for x in test_set] 
     
     [shutil.copy(x, val_path) for x in val] 
     [shutil.copy(get_label_path(x), val_path) for x in val] 
 
+
+
 if __name__ == '__main__':
-    images = [x for x in glob(str(raw_path) + '/*')]
+    images = [ x for x in glob(str(raw_path) + '/*') 
+                    if not any([name in x for name in to_remove])
+            ]
+
     args = get_args()
+
+    os.system(f'rm -rf {train_path}/*')
+    os.system(f'rm -rf {test_path}/*')
+    os.system(f'rm -rf {val_path}/*')
 
     if args['dvc']:
         with open('params.yaml') as file:
@@ -66,15 +80,11 @@ if __name__ == '__main__':
             test_size = params['split']['test_size']
     else:
         val_size = args['val_size']
-        test_size = args['test_size']
     
-    if val_size == 0:
-        val_size = None
+    if val_size is None:
+        val_size = 0
 
-    if test_size == 0:
-        test_size = None
-
-    split(images, test_size, val_size)
+    split(images, val_size)
 
 
 

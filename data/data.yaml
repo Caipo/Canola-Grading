@@ -2,7 +2,7 @@
 path: dataset/grain_data
 train: train 
 test: test
-val: test 
+val: val 
 
 
 
