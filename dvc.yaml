@@ -4,10 +4,11 @@ stages:
     deps:
       - preprocess/raw_labels
       - preprocess/convert_labels.py
-    outs:
-      - dataset/grain_data/labels
   split:
-    cmd: python3 preprocess/train_test_split.py
+    cmd: python3 preprocess/train_test_split.py --dvc
+    params:
+      - split.val_size
+      - split.test_size
     deps:
       - preprocess/raw_images
       - dataset/grain_data/labels
@@ -16,7 +17,9 @@ stages:
       - dataset/grain_data/train
       - dataset/grain_data/test
   train:
-    cmd: python3 train.py --img 1024 --batch 1 --epochs 50 --data data.yaml --weights yolov5s.pt 
+    cmd: python3 train.py --img 1024 --batch 1 --data data.yaml --weights yolov5s.pt --dvc
+    params:
+      - train.epochs
     deps:
       - dataset/grain_data/train
       - dataset/grain_data/test

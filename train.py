@@ -13,7 +13,7 @@ Models:     https://github.com/ultralytics/yolov5/tree/master/models
 Datasets:   https://github.com/ultralytics/yolov5/tree/master/data
 Tutorial:   https://docs.ultralytics.com/yolov5/tutorials/train_custom_data
 """
-
+import yaml
 import argparse
 import math
 import os
@@ -123,6 +123,11 @@ def train(hyp, opt, device, callbacks):
         opt.freeze,
     )
     callbacks.run("on_pretrain_routine_start")
+
+    if  opt.dvc:
+        with open('params.yaml', 'r') as file:
+            opt.epochs = int(yaml.safe_load(file)["train"]["epochs"])
+            epochs = opt.epochs
 
     # Directories
     w = save_dir / "weights"  # weights dir
@@ -331,6 +336,8 @@ def train(hyp, opt, device, callbacks):
         f"Logging results to {colorstr('bold', save_dir)}\n"
         f'Starting training for {epochs} epochs...'
     )
+
+
     for epoch in range(start_epoch, epochs):  # epoch ------------------------------------------------------------------
         callbacks.run("on_train_epoch_start")
         model.train()
@@ -561,6 +568,7 @@ def parse_opt(known=False):
     # NDJSON logging
     parser.add_argument("--ndjson-console", action="store_true", help="Log ndjson to console")
     parser.add_argument("--ndjson-file", action="store_true", help="Log ndjson to file")
+    parser.add_argument('--dvc', action='store_true', help='Train via DVC pipeline')
 
     return parser.parse_known_args()[0] if known else parser.parse_args()
 

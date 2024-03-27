@@ -5,50 +5,48 @@ stages:
     deps:
     - path: preprocess/convert_labels.py
       hash: md5
-      md5: 72742452cc1eb7e35e55eb14475f5d19
-      size: 1585
+      md5: ef37aa8f678a314c822e341074f2bb17
+      size: 1676
     - path: preprocess/raw_labels
       hash: md5
-      md5: 0b37f272b850c5028a20c8660d6cfb0b.dir
-      size: 109165
-      nfiles: 3
-    outs:
-    - path: dataset/grain_data/labels
-      hash: md5
-      md5: 27600b1ddc60c8e9748d0a3829136130.dir
-      size: 24263
-      nfiles: 3
+      md5: 11477290f1cdb721ebe4d8d4e23c0a35.dir
+      size: 455024
+      nfiles: 6
   split:
-    cmd: python3 preprocess/train_test_split.py
+    cmd: python3 preprocess/train_test_split.py --dvc
     deps:
     - path: dataset/grain_data/labels
       hash: md5
-      md5: 27600b1ddc60c8e9748d0a3829136130.dir
-      size: 24263
-      nfiles: 3
+      md5: 265c96690f3b603e1aa475fa4a451a85.dir
+      size: 282025
+      nfiles: 35
     - path: preprocess/raw_images
       hash: md5
-      md5: ef421943e99584049add501e4309e5eb.dir
-      size: 3548863
-      nfiles: 3
+      md5: a9781c326f8e3ab9c69d9ea104e1ee98.dir
+      size: 104189242
+      nfiles: 35
     - path: preprocess/train_test_split.py
       hash: md5
-      md5: ac229e7b1e5c373b34656755845e56d9
-      size: 1362
+      md5: 533c1757c66d1c4bf2804b252b7f58f6
+      size: 2483
+    params:
+      params.yaml:
+        split.test_size: 0.1
+        split.val_size: 0
     outs:
     - path: dataset/grain_data/test
       hash: md5
-      md5: afe7ed413d4999a1fc056a3b73b49291.dir
-      size: 1113839
-      nfiles: 2
+      md5: 62f04ef67b8c8851436efeb5b800aa0f.dir
+      size: 12001699
+      nfiles: 8
     - path: dataset/grain_data/train
       hash: md5
-      md5: 6c629acbb98d3a174069be9fc60770c3.dir
-      size: 2459287
-      nfiles: 4
+      md5: e9e7726ef1fb3028d405ca10a3cc207f.dir
+      size: 67584267
+      nfiles: 46
   train:
-    cmd: python3 train.py --img 1024 --batch 1 --epochs 50 --data data.yaml --weights
-      yolov5s.pt
+    cmd: python3 train.py --img 1024 --batch 1 --data data.yaml --weights yolov5s.pt
+      --dvc
     deps:
     - path: data/hyps/hyp.scratch-high.yaml
       hash: md5
@@ -56,7 +54,7 @@ stages:
       size: 1664
     - path: data/hyps/hyp.scratch-low.yaml
       hash: md5
-      md5: 366d052821741b1ad59dfe13e185e5d2
+      md5: 55d27f4c69099442790b992b509cbb46
       size: 1656
     - path: data/hyps/hyp.scratch-med.yaml
       hash: md5
@@ -69,21 +67,18 @@ stages:
       nfiles: 2
     - path: dataset/grain_data/train
       hash: md5
-      md5: 6c629acbb98d3a174069be9fc60770c3.dir
-      size: 2459287
-      nfiles: 4
+      md5: 75c8584ff97a2328242720bdaf67baee.dir
+      size: 1466856
+      nfiles: 2
     - path: dataset/grain_data/val
       hash: md5
-      md5: d751713988987e9331980363e24189ce.dir
-      size: 0
-      nfiles: 0
+      md5: c43d1b957e770f0260fec41af7d126f8.dir
+      size: 992431
+      nfiles: 2
     - path: train.py
       hash: md5
-      md5: 66ea8b66d2017e633fbd2b2c8c6eca5a
-      size: 39782
-    outs:
-    - path: runs/train
-      hash: md5
-      md5: aff183a9fc9562be83de00dc91bf33bf.dir
-      size: 31339964
-      nfiles: 15
+      md5: 705e387c58298fa0e436c740037986a0
+      size: 40047
+    params:
+      params.yaml:
+        train.epochs: 3

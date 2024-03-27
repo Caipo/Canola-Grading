@@ -17,34 +17,37 @@ def make_lables(file):
         tree = ET.parse(file)
         root = tree.getroot()
 
-        image_width = int(root.find('size').find('width').text)
-        image_height = int(root.find('size').find('height').text)
+        
+        for image in root.findall('image'):
 
-        data = list()
-        for obj in root.findall('object'):
-            name = obj.find('name').text
-            box = obj.find('bndbox')
-            x_min = float(box.find('xmin').text)
-            y_min = float(box.find('ymin').text)
-            x_max = float(box.find('xmax').text)
-            y_max = float(box.find('ymax').text)
+            image_width = float(image.get('width'))
+            image_height = float(image.get('height'))
+            name = image.get('name')
 
-            x_center = round((x_min + x_max) / 2)
-            width = round(x_max - x_min)
+            data = list()
 
-            y_center = round((y_min + y_max) / 2)
-            height = round(y_max - y_min)
+            for box in image.findall('box'):
+                label = box.get('label')
+                x_min = float(box.get('xtl'))
+                y_min = float(box.get('ytl'))
+                x_max = float(box.get('xbr'))
+                y_max = float(box.get('ybr'))
 
-            x_center = x_center / image_width
-            width = width / image_width
-            
-            y_center = y_center / image_height
-            height = height / image_height
+                x_center = round((x_min + x_max) / 2)
+                width = round(x_max - x_min)
 
-            data.append(f'{name} {x_center} {y_center} {width} {height}')
+                y_center = round((y_min + y_max) / 2)
+                height = round(y_max - y_min)
 
-    with open(output_dir / (file.stem + '.txt'), 'w') as write_file:
-        write_file.write('\n'.join(data))
+                x_center = x_center / image_width
+                width = width / image_width
+                
+                y_center = y_center / image_height
+                height = height / image_height
+
+                data.append(f'{label} {x_center} {y_center} {width} {height}')
+            with open(output_dir / (name.replace('.jpg', '.txt')), 'w') as write_file:
+                write_file.write('\n'.join(data))
 
 if __name__ == '__main__':
     files = [x for x in glob(str(xml_dir) + '/*')]
