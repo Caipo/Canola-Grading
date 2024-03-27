@@ -19,7 +19,7 @@ os.makedirs(train_path, exist_ok = True)
 os.makedirs(test_path, exist_ok = True)
 os.makedirs(val_path, exist_ok = True)
 
-def split(images, test_size = 0.1):
+def split(images, test_size = None):
     train, test = train_test_split( images, 
                                     test_size = test_size, 
                                     random_state = 42

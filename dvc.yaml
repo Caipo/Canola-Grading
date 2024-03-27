@@ -16,11 +16,12 @@ stages:
       - dataset/grain_data/train
       - dataset/grain_data/test
   train:
-    cmd: python3 train.py --img 1024 --batch 1 --epochs 10 --data data.yaml --weights yolov5s.pt 
+    cmd: python3 train.py --img 1024 --batch 1 --epochs 50 --data data.yaml --weights yolov5s.pt 
     deps:
       - dataset/grain_data/train
       - dataset/grain_data/test
       - dataset/grain_data/val
+      - data/hyps/hyp.scratch-low.yaml
+      - data/hyps/hyp.scratch-med.yaml
+      - data/hyps/hyp.scratch-high.yaml
       - train.py
-    outs:
-      - runs/trains
