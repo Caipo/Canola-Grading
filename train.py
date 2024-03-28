@@ -124,10 +124,14 @@ def train(hyp, opt, device, callbacks):
     )
     callbacks.run("on_pretrain_routine_start")
 
-    if  opt.dvc:
-        with open('params.yaml', 'r') as file:
-            opt.epochs = int(yaml.safe_load(file)["train"]["epochs"])
-            epochs = opt.epochs
+    with open('params.yaml', 'r') as file:
+        yaml_file = yaml.safe_load(file)
+
+    opt.epochs = int(yaml_file["train"]["epochs"])
+    epochs = opt.epochs
+
+    opt.batch_size = int(yaml_file["train"]["batch_size"])
+    batch_size = opt.batch_size 
 
     # Directories
     w = save_dir / "weights"  # weights dir

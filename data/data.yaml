@@ -2,13 +2,13 @@
 path: dataset/grain_data
 train: train 
 test: test
-val: val 
+val: test 
 
 
 
 # Classes
 names:
-  0: pass 
-  1: green
-  2: heated
-  3: unknown
+  0: '' 
+  1: '' 
+  2: '' 
+  3: '' 

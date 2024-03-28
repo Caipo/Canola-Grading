@@ -9,48 +9,47 @@ stages:
       size: 1676
     - path: preprocess/raw_labels
       hash: md5
-      md5: 11477290f1cdb721ebe4d8d4e23c0a35.dir
-      size: 455024
-      nfiles: 6
+      md5: 1001577892110bbf24c0eb1482ff79ad.dir
+      size: 495102
+      nfiles: 7
   split:
     cmd: python3 preprocess/train_test_split.py --dvc
     deps:
     - path: dataset/grain_data/labels
       hash: md5
-      md5: 265c96690f3b603e1aa475fa4a451a85.dir
-      size: 282025
-      nfiles: 35
+      md5: ef8b899d125d8873531990b9ad452d2b.dir
+      size: 306288
+      nfiles: 38
     - path: preprocess/raw_images
       hash: md5
-      md5: a9781c326f8e3ab9c69d9ea104e1ee98.dir
-      size: 104189242
-      nfiles: 35
+      md5: 48c1b84f951487c93844f46f1a9c5d52.dir
+      size: 107738105
+      nfiles: 38
     - path: preprocess/train_test_split.py
       hash: md5
-      md5: 533c1757c66d1c4bf2804b252b7f58f6
-      size: 2483
+      md5: 695a1e7a20b144a04d65a5b727cabc50
+      size: 2582
     params:
       params.yaml:
-        split.test_size: 0.1
         split.val_size: 0
     outs:
     - path: dataset/grain_data/test
       hash: md5
-      md5: 62f04ef67b8c8851436efeb5b800aa0f.dir
-      size: 12001699
-      nfiles: 8
+      md5: 48316c46becf649558e475bc130cc33b.dir
+      size: 21212583
+      nfiles: 16
     - path: dataset/grain_data/train
       hash: md5
-      md5: e9e7726ef1fb3028d405ca10a3cc207f.dir
-      size: 67584267
-      nfiles: 46
+      md5: 75a6adcaba10958783cebb6549e0ffc5.dir
+      size: 102119015
+      nfiles: 72
     - path: dataset/grain_data/val
       hash: md5
-      md5: 8eb1009ec8b0dcb4c708bf2723fec55a.dir
-      size: 24885301
-      nfiles: 16
+      md5: d751713988987e9331980363e24189ce.dir
+      size: 0
+      nfiles: 0
   train:
-    cmd: python3 train.py --img 1024 --batch 1 --data data.yaml --weights yolov5s.pt
+    cmd: python3 train.py --img 1024 --batch 1 --data data.yaml --weights yolov5m.pt
       --dvc
     deps:
     - path: data/hyps/hyp.scratch-high.yaml
@@ -59,31 +58,35 @@ stages:
       size: 1664
     - path: data/hyps/hyp.scratch-low.yaml
       hash: md5
-      md5: 55d27f4c69099442790b992b509cbb46
-      size: 1656
+      md5: 99d60c4b5781bd3fca45d0eb93667b0c
+      size: 1664
     - path: data/hyps/hyp.scratch-med.yaml
       hash: md5
       md5: d04730e775ce10bc4f610efe2f1c7364
       size: 1658
     - path: dataset/grain_data/test
       hash: md5
-      md5: 62f04ef67b8c8851436efeb5b800aa0f.dir
-      size: 12001699
-      nfiles: 8
+      md5: 48316c46becf649558e475bc130cc33b.dir
+      size: 21212583
+      nfiles: 16
     - path: dataset/grain_data/train
       hash: md5
-      md5: e9e7726ef1fb3028d405ca10a3cc207f.dir
-      size: 67584267
-      nfiles: 46
+      md5: 75a6adcaba10958783cebb6549e0ffc5.dir
+      size: 102119015
+      nfiles: 72
     - path: dataset/grain_data/val
       hash: md5
-      md5: c793ca4640257e616b97074bc43db3a9.dir
-      size: 25877732
-      nfiles: 18
+      md5: d751713988987e9331980363e24189ce.dir
+      size: 0
+      nfiles: 0
+    - path: params.yaml
+      hash: md5
+      md5: a4bd6d1c9a010835ebb0a7c2af8119d6
+      size: 45
     - path: train.py
       hash: md5
       md5: 705e387c58298fa0e436c740037986a0
       size: 40047
     params:
       params.yaml:
-        train.epochs: 100
+        train.epochs: 1000

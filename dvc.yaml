@@ -8,7 +8,6 @@ stages:
     cmd: python3 preprocess/train_test_split.py --dvc
     params:
       - split.val_size
-      - split.test_size
     deps:
       - preprocess/raw_images
       - dataset/grain_data/labels

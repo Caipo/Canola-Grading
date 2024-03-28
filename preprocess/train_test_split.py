@@ -32,7 +32,6 @@ def get_args():
     parser = argparse.ArgumentParser(description="Just an example",
                         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument("--test_size", type=float, help="percentage split of train")
     parser.add_argument("--val_size", type=float, help="percentage split of val")
     parser.add_argument('--dvc', action='store_true', help='Train via DVC pipeline')
 
@@ -77,7 +76,6 @@ if __name__ == '__main__':
         with open('params.yaml') as file:
             params = yaml.safe_load(file)
             val_size = params['split']['val_size']
-            test_size = params['split']['test_size']
     else:
         val_size = args['val_size']
     
