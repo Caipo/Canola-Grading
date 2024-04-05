@@ -204,7 +204,8 @@ def plot_images(images, targets, paths=None, fname="images.jpg", names=None):
                 color = colors(cls)
                 cls = names[cls] if names else cls
                 if labels or conf[j] > 0.25:  # 0.25 conf thresh
-                    label = f"{cls}" if labels else f"{cls} {conf[j]:.1f}"
+                    #label = f"{cls}" if labels else f"{cls} {conf[j]:.1f}"
+                    label = '' 
                     annotator.box_label(box, label, color=color)
     annotator.im.save(fname)  # save
 
@@ -409,7 +410,7 @@ def plot_evolve(evolve_csv="path/to/evolve.csv"):
     f = fitness(x)
     j = np.argmax(f)  # max fitness index
     plt.figure(figsize=(10, 12), tight_layout=True)
-    matplotlib.rc("font", **{"size": 8})
+    matplotlib.rc("font", **{"size": 2})
     print(f"Best results from row {j} of {evolve_csv}:")
     for i, k in enumerate(keys[7:]):
         v = x[:, 7 + i]

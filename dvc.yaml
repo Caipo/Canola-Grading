@@ -5,7 +5,7 @@ stages:
       - preprocess/raw_labels
       - preprocess/convert_labels.py
   split:
-    cmd: python3 preprocess/train_test_split.py --dvc
+    cmd: python3 preprocess/train_test_split.py  --dvc
     params:
       - split.val_size
     deps:
@@ -17,9 +17,10 @@ stages:
       - dataset/grain_data/test
       - dataset/grain_data/val
   train:
-    cmd: python3 train.py --img 1024 --batch 1 --data data.yaml --weights yolov5s.pt --dvc
+    cmd: python3 train.py --optimizer Adam --img 1024 --data data.yaml --weights yolov5s.pt --dvc --evolve 150
     params:
       - train.epochs
+      - train.batch_size
     deps:
       - dataset/grain_data/train
       - dataset/grain_data/test
@@ -29,3 +30,7 @@ stages:
       - data/hyps/hyp.scratch-med.yaml
       - data/hyps/hyp.scratch-high.yaml
       - train.py
+  test:
+    cmd: latest_model=$(ls -v ~/Canola-Grading-/runs/train | tail -n 1); python3 detect.py --weights runs/train/$latest_model/weights/best.pt --source dataset/grain_data/test --img-size 1024 --name $latest_model
+  val:
+    cmd: latest_model=$(ls -v ~/Canola-Grading-/runs/train | tail -n 1); python3 val.py --weights runs/train/$latest_model/weights/best.pt --data data/data.yaml --img-size 1024 --task test

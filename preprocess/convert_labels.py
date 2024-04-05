@@ -46,6 +46,7 @@ def make_lables(file):
                 height = height / image_height
 
                 data.append(f'{label} {x_center} {y_center} {width} {height}')
+
             with open(output_dir / (name.replace('.jpg', '.txt')), 'w') as write_file:
                 write_file.write('\n'.join(data))
 
