@@ -9,22 +9,22 @@ stages:
       size: 1677
     - path: preprocess/raw_labels
       hash: md5
-      md5: c7207f7556703b9b40979ed0e13d9fac.dir
-      size: 703971
-      nfiles: 8
+      md5: 46ea66edf4740c0ac03e2353d55d018e.dir
+      size: 4385598
+      nfiles: 22
   split:
     cmd: python3 preprocess/train_test_split.py  --dvc
     deps:
     - path: dataset/grain_data/labels
       hash: md5
-      md5: 52ec3cf368a78dc07d62120a5e8f5ca6.dir
-      size: 437618
-      nfiles: 54
+      md5: 8ef70a3fb75834ca6e220fb9318bb508.dir
+      size: 973148
+      nfiles: 121
     - path: preprocess/raw_images
       hash: md5
-      md5: 828eeea046f8a9f5625b9d6a4cc2083a.dir
-      size: 120358299
-      nfiles: 54
+      md5: 7a3c6d13fe85c99735788da2483fc377.dir
+      size: 172896728
+      nfiles: 86
     - path: preprocess/train_test_split.py
       hash: md5
       md5: 93c0133e9270663d32c5535932232b04
@@ -40,14 +40,14 @@ stages:
       nfiles: 16
     - path: dataset/grain_data/train
       hash: md5
-      md5: b0805c31287af7fb277c5592530e10b1.dir
-      size: 82576432
-      nfiles: 78
+      md5: edb92a1ba2f58181092196a08d4f5956.dir
+      size: 128642785
+      nfiles: 136
     - path: dataset/grain_data/val
       hash: md5
-      md5: 759eab0b160cac31ecc6faecd24fe623.dir
-      size: 11081524
-      nfiles: 10
+      md5: f65e3a27ddb2d29e93f3a87e2d45bbb5.dir
+      size: 17807258
+      nfiles: 16
   train:
     cmd: python3 train.py --optimizer Adam --img 1024 --data data.yaml --weights yolov5s.pt
       --dvc
@@ -58,7 +58,7 @@ stages:
       size: 1664
     - path: data/hyps/hyp.scratch-low.yaml
       hash: md5
-      md5: 1c60ff57eaf60cbfcee593250b2f00e2
+      md5: 4cc0ae071b179fb82bddc7044806afba
       size: 369
     - path: data/hyps/hyp.scratch-med.yaml
       hash: md5
@@ -71,14 +71,14 @@ stages:
       nfiles: 16
     - path: dataset/grain_data/train
       hash: md5
-      md5: b0805c31287af7fb277c5592530e10b1.dir
-      size: 82576432
-      nfiles: 78
+      md5: 7da9c6e20619d0223e72c4d97d5ffb13.dir
+      size: 174829293
+      nfiles: 136
     - path: dataset/grain_data/val
       hash: md5
-      md5: 759eab0b160cac31ecc6faecd24fe623.dir
-      size: 11081524
-      nfiles: 10
+      md5: 2b462a2d9e4dff89a3c65d4af168f29d.dir
+      size: 21153611
+      nfiles: 16
     - path: params.yaml
       hash: md5
       md5: f63512e1d644090c934f3172100b249c

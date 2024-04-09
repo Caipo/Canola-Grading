@@ -20,15 +20,23 @@ if __name__ == '__main__':
     
         num_labels = len([x for x in raw_label_path.glob('*.xml')])
         unzip_file(zip_file, temp_file)
+
         shutil.rmtree(temp_file / '__MACOSX')
-        [x.rename(x.with_suffix('.jpeg')) for x in temp_file.rglob('*.jp*g')]
+        
+        # jpg --> jpeg
+        images = [x.rename(x.with_suffix('.jpeg')) for x in temp_file.rglob('*.jp*g')]
+        
+
         images = [x for x in temp_file.rglob('*.jp*g')]        
         lables = [x for x in temp_file.rglob('*.xml')]        
         
         for xml_file in lables: 
-            xml_file.rename(xml_file.with_name(f'annotation-{num_labels}.xml'))
+            xml_file = xml_file.rename(xml_file.with_name(f'annotation-{num_labels}.xml'))
             num_labels += 1
             shutil.move(xml_file, raw_label_path) 
 
         for jpeg_file in images:
-            shutil.move(jpeg_file(image, raw_image_path)
+            try:
+                shutil.move(jpeg_file, raw_image_path)
+            except:
+                pass

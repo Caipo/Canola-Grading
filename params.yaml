@@ -2,5 +2,5 @@ split:
   val_size: 0.10
 
 train:
-  epochs: 300 
+  epochs: 1000 
   batch_size: 16 

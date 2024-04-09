@@ -17,7 +17,7 @@ stages:
       - dataset/grain_data/test
       - dataset/grain_data/val
   train:
-    cmd: python3 train.py --optimizer Adam --img 1024 --data data.yaml --weights yolov5s.pt --dvc --evolve 150
+    cmd: python3 train.py --optimizer Adam --img 1024 --data data.yaml --weights yolov5s.pt --dvc 
     params:
       - train.epochs
       - train.batch_size
